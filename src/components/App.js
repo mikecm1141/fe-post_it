@@ -4,12 +4,9 @@ import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 
 import NavBar from './NavBar';
-import Topics from './Topics';
-
-import { doTopicsFetch } from '../actions/topics';
+import TopicsContainer from './TopicsContainer';
 
 const styles = {
   main: {
@@ -20,26 +17,25 @@ const styles = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onTopicsFetch: () => dispatch(doTopicsFetch())
+  
 });
 
 const mapStateToProps = state => ({
-  topics: state.topicsState.topics
 });
 
 class App extends Component {
-  componentDidMount() {
-    this.props.onTopicsFetch();
-  }
 
   render() {
-    const { classes, topics } = this.props;
+    const { classes } = this.props;
     return(
       <div>
         <NavBar />
         <main className={classes.main}>
           <Switch>
-            <Route exact path="/" render={(props) => <Topics {...props} topics={topics} />} />
+            <Route
+              exact path="/"
+              render={(props) => <TopicsContainer {...props} />} 
+            />
           </Switch>
         </main>
       </div>
